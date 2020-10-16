@@ -72,12 +72,12 @@ export const useProjects = () => {
           docId: project.id,
         }))
 
-        // Check if projects changed, to prevent infinite loop
+        // Check if changed, to prevent infinite loop
         if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
           setProjects(allProjects)
         }
       })
-
-    return { projects, setProjects }
   }, [projects])
+
+  return { projects, setProjects }
 }

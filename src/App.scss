@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,700,900');
 
 // Variables
+// ==============================================================
 $generic-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
   rgba(0, 0, 0, 0.1) 0px 4px 11px;
 $generic-border: 1px solid #f1f1f1;
@@ -11,8 +12,10 @@ $primary-text: #202020;
 $button: #fff;
 $primary-dark: #333;
 $secondary-dark: #555;
+$primary-light: #f0f0f0;
 
 // General
+// ==============================================================
 html {
   box-sizing: border-box;
 }
@@ -40,7 +43,9 @@ ul {
 }
 
 // Mixins
+// ==============================================================
 @mixin box-overlay() {
+  -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
   position: absolute;
   width: 100%;
@@ -50,12 +55,20 @@ ul {
 }
 
 @mixin va($va-align: center) {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 
   @if $va-align != center {
+    -webkit-box-pack: left;
+    -ms-flex-pack: left;
     justify-content: left;
   } @else {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 }
@@ -63,7 +76,6 @@ ul {
 @mixin no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -72,12 +84,12 @@ ul {
 @mixin btn($width) {
   width: $width;
   background-color: $generic-bg;
-  color: $button !important;
+  color: #fff !important;
   border: 1px solid transparent;
   margin-right: 5px;
   margin-top: 10px;
   font-weight: bold;
-  font-style: 13px !important;
+  font-size: 13px !important;
   line-height: 17px;
   padding: 6px 12px 7px 12px;
   position: relative;
@@ -90,27 +102,34 @@ ul {
 }
 
 @mixin cancel() {
-  color: $secondary-dark;
+  color: #555;
   cursor: pointer;
   font-size: 14px;
   margin: 2px 5px;
 }
 
+@mixin transparent-button() {
+  background-color: transparent;
+  border: 0;
+}
+
 @mixin task-item() {
   list-style-type: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   line-height: 18px;
-  color: $primary-dark;
+  color: #333;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 14px;
   list-style-type: none;
-  border-bottom: 1px solid $generic-border;
+  border-bottom: 1px solid #f0f0f0;
   padding-left: 10px;
   cursor: pointer;
 
-  &hover {
-    background-color: $white-bg;
+  &:hover {
+    background-color: #f9f9f9;
   }
 }
 
@@ -121,6 +140,7 @@ ul {
 }
 
 // Darkmode
+// ==============================================================
 .darkmode {
   header {
     -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.15);
@@ -131,7 +151,8 @@ ul {
 }
 
 // Header
-.header {
+// ==============================================================
+header {
   border-bottom: solid 1px $red-border;
   background-color: $generic-bg;
   transition: height 200ms ease-in;
@@ -148,6 +169,7 @@ ul {
 }
 
 // Nav
+// ==============================================================
 nav {
   display: grid;
   align-items: center;
@@ -161,7 +183,7 @@ nav {
 
 p,
 li {
-  color: $button;
+  color: $primary-dark;
 }
 
 div {
@@ -212,6 +234,7 @@ div {
 }
 
 // Sidebar
+// ==============================================================
 .sidebar {
   @include no-select();
   width: 266px;
@@ -320,9 +343,14 @@ div {
       color: #0000008a;
       margin-right: 10px;
 
+      svg {
+        transform: rotate(0deg);
+        transition: transform 0.2s linear;
+      }
+
       svg.hidden-projects {
-        -webkit-transform: rotate(-90deg);
         transform: rotate(-90deg);
+        transition: transform 0.2s linear;
       }
     }
 
@@ -376,6 +404,108 @@ div {
       &:hover {
         font-weight: bold;
         background-color: $button;
+      }
+    }
+  }
+}
+
+// Delete project modal
+// ==============================================================
+
+.project-delete-modal {
+  position: relative;
+  width: 100px;
+
+  &__inner {
+    @include box-overlay();
+    z-index: 99;
+    width: 200px;
+    padding: 10px;
+    top: 10px;
+    right: 0;
+    background-color: white;
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      line-height: normal;
+      font-weight: normal;
+      font-size: 15px;
+    }
+
+    button {
+      @include btn('50px');
+    }
+    span {
+      @include cancel();
+      font-weight: normal;
+    }
+  }
+}
+
+// Main content
+// ==============================================================
+.content {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  max-width: 922px;
+  margin: auto;
+}
+
+// Tasks
+// ==============================================================
+.tasks {
+  width: 656px;
+  background-color: $button;
+  margin-left: 266px;
+  border-right: $generic-border;
+  min-height: calc(100vh);
+  vertical-align: top;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 80px;
+  padding-bottom: 84px;
+
+  @include mq('900px') {
+    margin-left: 0;
+    width: auto;
+  }
+
+  h2 {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 30px 20px 0;
+  }
+
+  .add-task {
+    margin-top: 20px;
+  }
+
+  &__list li {
+    display: flex;
+    line-height: 18px;
+    color: $primary-dark;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    list-style-type: none;
+    border-bottom: 1px solid $primary-light;
+
+    .checkbox-holder {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      justify-items: center;
+      line-height: 16px;
+
+      .checkbox {
+        cursor: pointer;
+        color: $primary-dark;
+        height: 16px;
+        width: 16px;
+        border: 1px solid $secondary-dark;
+        border-radius: 50%;
       }
     }
   }

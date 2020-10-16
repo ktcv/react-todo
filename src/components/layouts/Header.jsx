@@ -3,7 +3,7 @@ import { FaPaperPlane, FaAlignJustify } from 'react-icons/fa'
 
 export const Header = () => {
   return (
-    <div className='header' data-testid='header'>
+    <header className='header' data-testid='header'>
       <nav>
         <div className='logo'>
           <FaPaperPlane />
@@ -19,6 +19,6 @@ export const Header = () => {
           </ul>
         </div>
       </nav>
-    </div>
+    </header>
   )
 }
