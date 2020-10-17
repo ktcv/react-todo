@@ -38,16 +38,15 @@ export const useTasks = (selectedProject) => {
       }))
 
       setTasks(
-        selectedProject === 'WEEK'
+        selectedProject === 'NEXT_7'
           ? newTasks.filter(
               (task) =>
-                moment(task.date, 'DD-MM-YYY').diff(moment(), 'days') <= 7 &&
+                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
                 task.archived !== true
             )
-          : newTasks.filter((task) => task.archived === false)
+          : newTasks.filter((task) => task.archived !== true)
       )
-
-      setArchivedTasks(newTasks.filter((task) => task.archived === true))
+      setArchivedTasks(newTasks.filter((task) => task.archived !== false))
     })
 
     return () => unsubscribe()
@@ -72,8 +71,11 @@ export const useProjects = () => {
           docId: project.id,
         }))
 
-        // Check if changed, to prevent infinite loop
-        if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+        // Only set project if changed, to prevent infinite loop
+        if (
+          JSON.stringify(projects.map((p) => p.projectId)) !==
+          JSON.stringify(allProjects.map((p) => p.projectId))
+        ) {
           setProjects(allProjects)
         }
       })
