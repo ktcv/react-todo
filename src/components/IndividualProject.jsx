@@ -9,7 +9,7 @@ export const IndividualProject = ({ project }) => {
   const { setSelectedProject } = useSelectedProjectValue()
 
   // Init state to show project delete modal
-  const [showConfirm, setShowConfirm] = useState(false)
+  // const [showConfirm, setShowConfirm] = useState(false)
 
   // Delete project and then refresh projects by calling useProject hook through setProjects
   const deleteProject = (docId) => {
@@ -31,7 +31,8 @@ export const IndividualProject = ({ project }) => {
       <span
         className='sidebar__project-delete'
         data-testid='delete-project'
-        onClick={() => setShowConfirm(!showConfirm)}
+        onClick={() => deleteProject(project.docId)}
+        // onClick={() => setShowConfirm(!showConfirm)}
         // onKeyDown={(e) => {
         //   if (e.key === 'Enter') setShowConfirm(!showConfirm)
         // }}
@@ -40,7 +41,7 @@ export const IndividualProject = ({ project }) => {
         // aria-label='Confirm deletion of project'
       >
         <FaTrashAlt />
-        {showConfirm && (
+        {/* {showConfirm && (
           <div className='project-delete-modal'>
             <div className='project-delete-modal__inner'>
               <p>Are you sure you want to delete this project?</p>
@@ -51,7 +52,7 @@ export const IndividualProject = ({ project }) => {
                 Delete
               </button>
               <span
-                onClick={() => setShowConfirm(!showConfirm)}
+                // onClick={() => setShowConfirm(!showConfirm)}
                 // onKeyDown={(e) => {
                 //   if (e.key === 'Enter') setShowConfirm(!showConfirm)
                 // }}
@@ -63,7 +64,7 @@ export const IndividualProject = ({ project }) => {
               </span>
             </div>
           </div>
-        )}
+        )} */}
       </span>
     </>
   )
