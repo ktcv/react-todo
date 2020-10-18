@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useTasks } from '../hooks'
 import { Checkbox } from './Checkbox'
+import { AddTask } from './AddTask'
 import { collatedTasks } from '../constants'
 import { getTitle, getCollatedTitle, collatedTasksExist } from '../helpers'
 import { useProjectsValue, useSelectedProjectValue } from '../context'
@@ -39,6 +40,8 @@ export const Tasks = () => {
           </li>
         ))}
       </ul>
+
+      <AddTask />
     </div>
   )
 }

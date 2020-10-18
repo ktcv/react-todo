@@ -7,6 +7,7 @@ export const Header = () => {
       <nav>
         <div className='logo'>
           <FaPaperPlane />
+          <span className='title'> Todo</span>
         </div>
         <div className='settings'>
           <ul>
