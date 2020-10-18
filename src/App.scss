@@ -163,6 +163,12 @@ header {
   top: 0;
   width: 100%;
 
+  .settings__add,
+  .settings__darkMode,
+  .logo {
+    color: $white-bg;
+  }
+
   @include mq('900px') {
     padding: 0 10px;
   }
@@ -227,6 +233,7 @@ div {
         &.settings__add {
           margin-right: 15px;
           font-size: 30px;
+          color: $white-bg;
         }
 
         &.settings__dark-mode svg {
@@ -645,7 +652,12 @@ div {
 
   &__list li {
     @include task-item();
-    padding: 0;
+    padding: 10px;
+    color: $secondary-dark;
+
+    svg {
+      margin-right: 10px;
+    }
 
     div:nth-child(1) {
       padding: 10px;
@@ -681,7 +693,8 @@ div {
 
   &__list li {
     @include task-item();
-    padding: 0;
+    padding: 10px;
+    color: $secondary-dark;
 
     div:nth-child(1) {
       width: 100%;

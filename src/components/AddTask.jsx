@@ -4,6 +4,8 @@ import moment from 'moment'
 import { firebase } from '../firebase'
 import { useSelectedProjectValue } from '../context'
 import { dummyId } from '../constants'
+import { ProjectOverlay } from './ProjectOverlay'
+import { TaskDate } from './TaskDate'
 
 export const AddTask = ({
   showAddTaskMain = true,
@@ -12,7 +14,7 @@ export const AddTask = ({
   setShowQuickAddTask,
 }) => {
   const [task, setTask] = useState('')
-  const [taskdate, setTaskDate] = useState('')
+  const [taskDate, setTaskDate] = useState('')
   const [project, setProject] = useState('')
   const [showMain, setShowMain] = useState(shouldShowMain)
   const [showProjectOverlay, setShowProjectOverlay] = useState(false)
@@ -28,6 +30,10 @@ export const AddTask = ({
       collatedDate = moment().format('DD/MM/YYYY')
     } else if (projectId === 'WEEK') {
       collatedDate = moment().add(7, 'days').format('DD/MM/YYYY')
+    }
+
+    if (showQuickAddTask) {
+      setShowQuickAddTask(false)
     }
 
     return (
@@ -68,6 +74,7 @@ export const AddTask = ({
         </div>
       )}
 
+      {/* Add task component */}
       {(showMain || showQuickAddTask) && (
         <div className='add-task__main' data-testid='add-task-main'>
           {showQuickAddTask && (
@@ -82,12 +89,22 @@ export const AddTask = ({
                     setShowProjectOverlay(false)
                     setShowQuickAddTask(false)
                   }}
-                ></span>
+                >
+                  x
+                </span>
               </div>
             </>
           )}
-          <p>Project overlay</p>
-          <p>TaskDate</p>
+          <ProjectOverlay
+            setProject={setProject}
+            showProjectOverlay={showProjectOverlay}
+            setShowProjectOverlay={setShowProjectOverlay}
+          />
+          <TaskDate
+            setTaskDate={setTaskDate}
+            showTaskDate={showTaskDate}
+            setShowTaskDate={setShowTaskDate}
+          />
           <input
             type='text'
             className='add-task__content'

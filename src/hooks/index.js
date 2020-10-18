@@ -30,23 +30,24 @@ export const useTasks = (selectedProject) => {
         ? (unsubscribe = unsubscribe.where('date', '==', ''))
         : unsubscribe
 
-    // Set filtered tasks to state
+    // Add taskId to each task
     unsubscribe = unsubscribe.onSnapshot((snapshot) => {
       const newTasks = snapshot.docs.map((task) => ({
         id: task.id,
         ...task.data(),
       }))
 
+      // Set filtered tasks to state
       setTasks(
-        selectedProject === 'NEXT_7'
+        selectedProject === 'WEEK'
           ? newTasks.filter(
               (task) =>
-                moment(task.date, 'DD-MM-YYYY').diff(moment(), 'days') <= 7 &&
-                task.archived !== true
+                moment(task.date, 'DD/MM/YYYY').diff(moment(), 'days') <= 7
+              // && task.archived !== true
             )
-          : newTasks.filter((task) => task.archived !== true)
+          : newTasks.filter((task) => task.archived === false)
       )
-      setArchivedTasks(newTasks.filter((task) => task.archived !== false))
+      setArchivedTasks(newTasks.filter((task) => task.archived === true))
     })
 
     return () => unsubscribe()

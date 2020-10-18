@@ -1,7 +1,12 @@
-import React from 'react'
-import { FaPaperPlane, FaAlignJustify } from 'react-icons/fa'
+import React, { useState } from 'react'
+import { AddTask } from '../AddTask'
+import { FaPaperPlane } from 'react-icons/fa'
+import { BsSun, BsMoon } from 'react-icons/bs'
 
-export const Header = () => {
+export const Header = ({ darkMode, setDarkMode }) => {
+  const [shouldShowMain, setShouldShowMain] = useState(false)
+  const [showQuickAddTask, setShowQuickAddTask] = useState(false)
+
   return (
     <header className='header' data-testid='header'>
       <nav>
@@ -11,15 +16,33 @@ export const Header = () => {
         </div>
         <div className='settings'>
           <ul>
-            <li className='settings__add' data-testid='quick-add-task-action'>
+            <li
+              className='settings__add'
+              data-testid='quick-add-task-action'
+              onClick={() => {
+                setShowQuickAddTask(true)
+                setShouldShowMain(true)
+              }}
+            >
               +
             </li>
-            <li className='settings__darknode' data-testid='dark-mode-action'>
-              <FaAlignJustify />
+            <li className='settings__darkMode' data-testid='dark-mode-action'>
+              {darkMode ? (
+                <BsSun onClick={() => setDarkMode(false)} />
+              ) : (
+                <BsMoon onClick={() => setDarkMode(true)} />
+              )}
             </li>
           </ul>
         </div>
       </nav>
+
+      <AddTask
+        showAddTaskMain={false}
+        shouldShowMain={shouldShowMain}
+        showQuickAddTask={showQuickAddTask}
+        setShowQuickAddTask={setShowQuickAddTask}
+      />
     </header>
   )
 }

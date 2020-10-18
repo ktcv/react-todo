@@ -11,7 +11,7 @@ export const AddProject = ({ shouldShow = false }) => {
   // Generate random ID
   const projectId = generatePushId()
 
-  const { setProjects } = useProjectsValue()
+  const { projects, setProjects } = useProjectsValue()
 
   const addProject = () => {
     projectName &&
@@ -25,7 +25,7 @@ export const AddProject = ({ shouldShow = false }) => {
         })
         .then(() => {
           // Refetch projects by changing project context, which calls Firestore useEffect
-          setProjects([])
+          setProjects([...projects])
           setProjectName('')
           setShow(false)
         })
