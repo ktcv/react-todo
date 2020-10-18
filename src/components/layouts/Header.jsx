@@ -8,7 +8,7 @@ export const Header = ({ darkMode, setDarkMode }) => {
   const [showQuickAddTask, setShowQuickAddTask] = useState(false)
 
   return (
-    <header className='header' data-testid='header'>
+    <header className='header' id='header' data-testid='header'>
       <nav>
         <div className='logo'>
           <FaPaperPlane />

@@ -50,8 +50,8 @@ ul {
   position: absolute;
   width: 100%;
   z-index: 1;
-  top: 85px;
   border-radius: 3px;
+  top: 85px;
 }
 
 @mixin va($va-align: center) {
@@ -685,11 +685,8 @@ div {
 .project-overlay {
   @include box-overlay();
   background-color: white;
-
-  @include mq('900px') {
-    width: 200px;
-    right: 0;
-  }
+  width: 200px;
+  right: 0;
 
   &__list li {
     @include task-item();
