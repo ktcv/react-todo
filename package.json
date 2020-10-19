@@ -23,6 +23,15 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js"
+    ],
+    "coverageReporters": [
+      "html",
+      "text"
+    ]
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
