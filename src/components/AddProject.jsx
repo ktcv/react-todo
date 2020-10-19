@@ -37,7 +37,14 @@ export const AddProject = ({ shouldShow = false }) => {
         <div className='add-project__input'>
           <input
             value={projectName}
-            onChange={(event) => setProjectName(event.target.value)}
+            onChange={(event) => {
+              setProjectName(event.target.value)
+            }}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                addProject()
+              }
+            }}
             className='add-project__name'
             data-testid='project-name'
             type='text'
@@ -52,9 +59,13 @@ export const AddProject = ({ shouldShow = false }) => {
             Add Project
           </button>
           <span
+            role='button'
+            tabIndex={0}
             data-testid='hide-project-overlay'
             className='add-project__cancel'
-            onClick={() => setShow(false)}
+            onClick={() => {
+              setShow(false)
+            }}
           >
             Cancel
           </span>

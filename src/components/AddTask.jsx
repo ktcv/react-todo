@@ -26,7 +26,9 @@ export const AddTask = ({
     const projectId = project || selectedProject
     let collatedDate = ''
 
-    if (projectId === 'TODAY') {
+    if (taskDate !== '') {
+      collatedDate = taskDate
+    } else if (projectId === 'TODAY') {
       collatedDate = moment().format('DD/MM/YYYY')
     } else if (projectId === 'WEEK') {
       collatedDate = moment().add(7, 'days').format('DD/MM/YYYY')
@@ -111,7 +113,12 @@ export const AddTask = ({
             className='add-task__content'
             data-testid='add-task-content'
             value={task}
-            onChange={(e) => setTask(e.target.value)}
+            onChange={(event) => setTask(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                addTask()
+              }
+            }}
           />
           <button
             className='add-task__submit'
